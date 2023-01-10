@@ -51,4 +51,15 @@ public class Cart {
     public double getTotalPrice() {
         return total;
     }
+
+//    //for testing purposes only
+//    public List<RealItem> getRealItemsList() {
+//        return this.realItems;
+//    }
+//
+//    //for testing purposes only
+//    public List<VirtualItem> getVirtualItemsList() {
+//        return this.virtualItems;
+//    }
+
 }

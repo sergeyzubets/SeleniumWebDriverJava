@@ -1,1 +1,1 @@
-{"cartName":"Jackson Casper I","realItems":[{"weight":0.7816183418680331,"name":"Lynell Kessler","price":0.39950961776748817}],"virtualItems":[{"sizeOnDisk":0.806469255981809,"name":"Lynell Kessler","price":0.39950961776748817}],"total":0.9588230826419716}
+{"cartName":"writeToFileTest","realItems":[{"weight":0.1,"name":"realItem 1","price":10.0}],"virtualItems":[{"sizeOnDisk":0.2,"name":"virtual 1","price":10.0}],"total":24.0}

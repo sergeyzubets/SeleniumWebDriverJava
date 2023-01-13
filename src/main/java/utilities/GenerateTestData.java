@@ -11,6 +11,7 @@ import java.nio.file.*;
 
 public class GenerateTestData {
     private static final double TAX = 0.2;
+    private static final Logger logger = LogManager.getLogger();
 
     public static RealItem createNewRealItem(String name, double price, double weight) {
         RealItem realItem = new RealItem();
@@ -30,7 +31,6 @@ public class GenerateTestData {
 
     @SneakyThrows
     public static void createTestJSONFile(String filename, Cart cart) {
-        final Logger logger = LogManager.getLogger();
         Path filePath = Paths.get("src", "test", "resources", filename + ".json");
 
         try (FileWriter writer = new FileWriter(filePath.toFile())) {

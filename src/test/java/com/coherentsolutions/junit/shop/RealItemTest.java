@@ -31,14 +31,17 @@ public class RealItemTest {
     @DisplayName("RealItem Test")
     public void newRealItem(String name, double price, double weight) {
         RealItem realItem = createNewRealItem(name, price, weight);
-        assertAll("RealItem Test",
+
+        assertAll("RealItem Name test",
                 () -> assertNotNull(realItem.getName(), EMPTY_OR_NULL_NAME),
                 () -> assertTrue(realItem.getName().trim().length() > 0, EMPTY_OR_NULL_NAME),
-                () -> assertEquals(name, realItem.getName(), "RealItem name" + VALUES_DO_NOT_MATCH),
+                () -> assertEquals(name, realItem.getName(), "RealItem name" + VALUES_DO_NOT_MATCH));
 
+        assertAll("RealItem Price Test",
                 () -> assertTrue(realItem.getPrice() > 0, ZERO_OR_NEGATIVE_PRICE),
-                () -> assertEquals(price, realItem.getPrice(), CALCULATION_ACCURACY, "RealItem price" + VALUES_DO_NOT_MATCH),
+                () -> assertEquals(price, realItem.getPrice(), CALCULATION_ACCURACY, "RealItem price" + VALUES_DO_NOT_MATCH));
 
+        assertAll("RealItem Weight Test",
                 () -> assertTrue(realItem.getWeight() > 0, ZERO_OR_NEGATIVE_WEIGHT),
                 () -> assertEquals(weight, realItem.getWeight(), CALCULATION_ACCURACY, "RealItem weight" + VALUES_DO_NOT_MATCH));
     }

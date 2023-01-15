@@ -51,4 +51,5 @@ public class Cart {
     public double getTotalPrice() {
         return total;
     }
+
 }

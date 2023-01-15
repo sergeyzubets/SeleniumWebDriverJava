@@ -1,0 +1,1 @@
+{"cartName":"readFromFile","realItems":[{"weight":0.1,"name":"realItem 1","price":10}],"virtualItems":[{"sizeOnDisk":0.2,"name":"virtualItem 1","price":10}],"total":24}

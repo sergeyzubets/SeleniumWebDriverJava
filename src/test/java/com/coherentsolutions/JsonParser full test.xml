@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Json Parser cycle results">
+    <test name="Json Parser full test">
+        <parameter name = "tax" value = "0.2"/>
+        <groups>
+            <run>
+                <include name="Regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.coherentsolutions.parser.JsonParserTest"/>
+        </classes>
+    </test>
+</suite>

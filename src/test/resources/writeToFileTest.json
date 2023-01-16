@@ -1,0 +1,1 @@
+{"cartName":"writeToFileTest","realItems":[{"weight":0.1,"name":"realItem 1","price":10.0}],"virtualItems":[{"sizeOnDisk":0.2,"name":"virtual 1","price":10.0}],"total":24.0}

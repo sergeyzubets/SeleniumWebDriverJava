@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Shop sanity cycle results">
+    <test name="Shop partial test">
+        <parameter name = "tax" value = "0.2"/>
+        <groups>
+            <run>
+                <include name="Regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.coherentsolutions.shop.RealItemTest"/>
+            <class name="com.coherentsolutions.shop.VirtualItemTest"/>
+            <class name="com.coherentsolutions.shop.CartTest">
+                <methods>
+                    <exclude name="deleteRealItem"/>
+                    <exclude name="deleteVirtualItem"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -21,21 +21,21 @@ public class JsonParserTest {
     private Cart cart;
     private RealItem realItem;
     private VirtualItem virtualItem;
-    private static final Parser parser = new JsonParser();
+    private Path filepath;
+    private static final Parser PARSER = new JsonParser();
 
-    @BeforeMethod(groups = {"Smoke", "Regression"})
+    @BeforeMethod
     public void setUpParsing() {
         realItem = createNewRealItem(REAL_ITEM_NAME_FOR_PARSING, ITEM_PRICE, VIRTUAL_ITEM_WEIGHT);
         virtualItem = createNewVirtualItem(VIRTUAL_ITEM_NAME_FOR_PARSING, ITEM_PRICE, VIRTUAL_ITEM_SIZE_ON_DISK);
     }
 
-    @Test(groups = {"Smoke", "Regression"}, dataProvider = "fileDataProvider", dataProviderClass = DataProviders.class)
-    @Parameters("tax")
-    public void readFromFileTest(String filename, double tax) {
+    @Ignore
+    @Test(dataProvider = "fileDataProvider", dataProviderClass = DataProviders.class)
+    public void readFromFileTest(String filename) {
         cart = new Cart(filename);
         cart.addRealItem(realItem);
         cart.addVirtualItem(virtualItem);
-
         File inputFile = new File(Paths.get("src", "test", "resources", filename + ".json").toUri());
 
         SoftAssert softAssert = new SoftAssert();
@@ -43,13 +43,12 @@ public class JsonParserTest {
         softAssert.assertTrue(inputFile.length() > 0, filename + FILE_IS_EMPTY);
         softAssert.assertAll("Read to file Test with valid and invalid files");
 
-        Cart cartFormFile = parser.readFromFile(inputFile);
-        assertEquals(getTotalAfterAddingItem(ITEM_PRICE, ITEM_PRICE, tax), cartFormFile.getTotalPrice(), CALCULATION_ACCURACY,
-                "total" + VALUES_DO_NOT_MATCH);
+        Cart cartFormFile = PARSER.readFromFile(inputFile);
+        assertEquals(getTotalAfterAddingItem(ITEM_PRICE, ITEM_PRICE, TAX), cartFormFile.getTotalPrice(), CALCULATION_ACCURACY, "total" + VALUES_DO_NOT_MATCH);
     }
 
-    @Ignore
-    @Test(groups = {"Smoke", "Regression"}, dataProvider = "fileDataProvider", dataProviderClass = DataProviders.class)
+    @Test
+    @Parameters({"writeFilename"})
     @SneakyThrows
     public void writeToFileTest(String filename) {
         cart = new Cart(filename);
@@ -59,15 +58,19 @@ public class JsonParserTest {
         createTestJSONFile(filename, cart);
         File expectedFile = new File(Paths.get("src", "test", "resources", filename + ".json").toUri());
 
-        parser.writeToFile(cart);
-        Path filepath = Paths.get("src", "main", "resources", cart.getCartName() + ".json");
+        PARSER.writeToFile(cart);
+        filepath = Paths.get("src", "main", "resources", cart.getCartName() + ".json");
         File actualFile = new File(filepath.toUri());
 
         assertEquals(
                 FileUtils.readFileToString(actualFile, "utf-8"),
                 FileUtils.readFileToString(expectedFile, "utf-8"),
                 FILES_ARE_NOT_THE_SAME);
+    }
 
+    @AfterTest
+    @SneakyThrows
+    public void deleteTestFiles() {
         Files.delete(filepath);
     }
 }

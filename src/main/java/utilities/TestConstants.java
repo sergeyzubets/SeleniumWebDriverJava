@@ -2,9 +2,6 @@ package utilities;
 
 public interface TestConstants {
 
-    String UNKNOWN_COVERAGE = " coverage group is not defined.";
-    String TEST_WITHOUT_DATA_PROVIDER = " test method is not required a DataProvider.";
-
     interface ShopConstants {
         double CALCULATION_ACCURACY = 0.000_000_000_001d;
         String EMPTY_OR_NULL_NAME = "The name cannot be empty or null.";
@@ -16,6 +13,7 @@ public interface TestConstants {
         String FILE_DOES_NOT_EXIST = "The file does not exist.";
         String FILE_IS_EMPTY = "The file does not contain any data.";
         String FILES_ARE_NOT_THE_SAME = "The written and actual files are not the same.";
+        double TAX = 0.2;
     }
 
     interface ParserConstants {

@@ -15,22 +15,20 @@ public class GetPropertyValues {
 
     @SneakyThrows
     public static String getPropertyValue(String property) {
+        Assertions.assertNotNull(property, PROPERTY_DOES_NOT_EXIST);
         String value = null;
 
         try {
             Properties properties = new Properties();
             InputStream inputStream = Files.newInputStream(Paths.get("src", "main", "resources", PROPERTIES_CONFIG_FILE));
+
             properties.load(inputStream);
             value = properties.getProperty(property);
         } catch (NullPointerException | NoSuchFileException e) {
             LOGGER.error(e.getMessage());
         }
 
-        if (value == null) {
-            Assertions.fail();
-            return PROPERTY_DOES_NOT_EXIST;
-        } else {
-            return value;
-        }
+        Assertions.assertNotNull(value, VALUE_DOES_NOT_EXIST);
+        return value;
     }
 }

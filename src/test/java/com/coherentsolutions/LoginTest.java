@@ -9,9 +9,9 @@ import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
-import static com.coherentsolutions.utilities.ByVariables.emailBoxPage.*;
-import static com.coherentsolutions.utilities.ByVariables.loginPage.*;
-import static com.coherentsolutions.utilities.ByVariables.mainPage.*;
+import static com.coherentsolutions.utilities.ByVariables.EmailBoxPage.*;
+import static com.coherentsolutions.utilities.ByVariables.LoginPage.*;
+import static com.coherentsolutions.utilities.ByVariables.MainPage.*;
 import static com.coherentsolutions.utilities.Constants.TestProperties.*;
 import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
 
@@ -29,6 +29,7 @@ public class LoginTest {
         username = getPropertyValue("user");
         password = getPropertyValue("password");
 
+        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver\\108\\chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
         wait = new WebDriverWait(webDriver, Duration.ofSeconds(TIME_OUT_IN_SECONDS));

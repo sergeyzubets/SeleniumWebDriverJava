@@ -8,7 +8,7 @@ public interface Constants {
     }
 
     interface TestProperties {
-        int TIME_OUT_IN_SECONDS = 30;
+        int TIME_OUT_IN_SECONDS = 20;
         String LOGIN_IS_NOT_SUCCESSFUL = "Login is not successful.";
     }
 }

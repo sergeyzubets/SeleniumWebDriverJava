@@ -2,6 +2,7 @@ package com.coherentsolutions.utilities;
 
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.*;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.InputStream;
 import java.nio.file.*;
@@ -26,6 +27,7 @@ public class GetPropertyValues {
         }
 
         if (value == null) {
+            Assertions.fail();
             return PROPERTY_DOES_NOT_EXIST;
         } else {
             return value;

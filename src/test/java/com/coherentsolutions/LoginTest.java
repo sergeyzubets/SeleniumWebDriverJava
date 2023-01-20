@@ -1,5 +1,6 @@
 package com.coherentsolutions;
 
+import com.sun.org.glassfish.gmbal.Description;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.*;
 import org.junit.jupiter.api.*;
@@ -12,7 +13,8 @@ import java.time.Duration;
 import static com.coherentsolutions.utilities.ByVariables.EmailBoxPage.*;
 import static com.coherentsolutions.utilities.ByVariables.LoginPage.*;
 import static com.coherentsolutions.utilities.ByVariables.MainPage.*;
-import static com.coherentsolutions.utilities.Constants.TestProperties.*;
+import static com.coherentsolutions.utilities.Constants.ErrorMessage.*;
+import static com.coherentsolutions.utilities.Constants.Config.*;
 import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
 
 public class LoginTest {
@@ -29,7 +31,7 @@ public class LoginTest {
         username = getPropertyValue("user");
         password = getPropertyValue("password");
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver\\108\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION.toString());
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
         wait = new WebDriverWait(webDriver, Duration.ofSeconds(TIME_OUT_IN_SECONDS));
@@ -37,8 +39,9 @@ public class LoginTest {
         LOGGER.info("Set up is done.");
     }
 
-    @SneakyThrows
     @Test
+    @Description("The test verifies the login to the email mechanism. The test compares the username in the account with the username used to log in.")
+    @SneakyThrows
     public void loginTest() {
         LOGGER.info("Open main page " + url);
         webDriver.get(url);

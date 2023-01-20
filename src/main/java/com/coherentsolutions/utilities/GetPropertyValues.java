@@ -16,7 +16,6 @@ public class GetPropertyValues {
 
     @SneakyThrows
     public static String getPropertyValue(String property) {
-        Assertions.assertNotNull(property, PROPERTY_DOES_NOT_EXIST);
         String value = null;
 
         try {

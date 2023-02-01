@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Task 4">
+    <test name="Task 4 all tests">
+        <classes>
+            <class name="com.coherentsolutions.LoginTest"/>
+            <class name="com.coherentsolutions.DynamicDataTest"/>
+            <class name="com.coherentsolutions.AlertTest"/>
+            <class name="com.coherentsolutions.MultiSelectTest"/>
+            <class name="com.coherentsolutions.SortAndSearchTest"/>
+            <class name="com.coherentsolutions.ProgressBarTest"/>
+        </classes>
+    </test>
+</suite>

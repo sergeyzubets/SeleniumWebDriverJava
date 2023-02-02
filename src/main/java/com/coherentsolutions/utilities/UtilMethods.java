@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 
 import java.util.*;
 
-import static com.coherentsolutions.utilities.Constants.Config.RANDOM_ITEMS_COUNT;
+import static com.coherentsolutions.utilities.constants.Constants.Config.RANDOM_ITEMS_COUNT;
 
 public class UtilMethods {
     private static final Faker FAKER = new Faker();
@@ -29,5 +29,4 @@ public class UtilMethods {
                 .replace("/y", "");
         return Integer.parseInt(salary);
     }
-
 }

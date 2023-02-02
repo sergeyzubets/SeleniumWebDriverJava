@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Task 4 point 5">
     <test name="MultiSelect List test">
+        <parameter name="multiSelectListUrl" value="https://demo.seleniumeasy.com/basic-select-dropdown-demo.html"/>
         <classes>
             <class name="com.coherentsolutions.MultiSelectTest"/>
         </classes>

@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Task 4 point 9">
     <test name="Sort and Search test">
+        <parameter name="sortAndSearchUrl" value="https://demo.seleniumeasy.com/table-sort-search-demo.html"/>
         <classes>
             <class name="com.coherentsolutions.SortAndSearchTest"/>
         </classes>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Task 4">
+    <test name="Task 4 all tests">
+        <parameter name="multiSelectListUrl" value="https://demo.seleniumeasy.com/basic-select-dropdown-demo.html"/>
+        <parameter name="sortAndSearchUrl" value="https://demo.seleniumeasy.com/table-sort-search-demo.html"/>
+        <parameter name="dynamicDataUrl" value="https://demo.seleniumeasy.com/dynamic-data-loading-demo.html"/>
+        <parameter name="progressBarUrl" value="https://demo.seleniumeasy.com/bootstrap-download-progress-demo.html"/>
+        <parameter name="alertUrl" value="https://demo.seleniumeasy.com/javascript-alert-box-demo.html"/>
+        <parameter name="loginPageUrl=" value="https://mail.yandex.com"/>
+        <classes>
+            <class name="com.coherentsolutions.LoginTest"/>
+            <class name="com.coherentsolutions.DynamicDataTest"/>
+            <class name="com.coherentsolutions.AlertTest"/>
+            <class name="com.coherentsolutions.MultiSelectTest"/>
+            <class name="com.coherentsolutions.SortAndSearchTest"/>
+            <class name="com.coherentsolutions.ProgressBarTest"/>
+        </classes>
+    </test>
+</suite>

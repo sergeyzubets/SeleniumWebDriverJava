@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Task 4 point 7">
     <test name="Dynamic Data test">
+        <parameter name="dynamicDataUrl" value="https://demo.seleniumeasy.com/dynamic-data-loading-demo.html"/>
         <classes>
             <class name="com.coherentsolutions.DynamicDataTest"/>
         </classes>

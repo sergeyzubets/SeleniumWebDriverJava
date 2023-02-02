@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.nio.file.*;
 import java.util.Properties;
 
-import static com.coherentsolutions.utilities.Constants.Config.*;
+import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 
 public class GetPropertyValues {
     private static final Logger LOGGER = LogManager.getLogger();

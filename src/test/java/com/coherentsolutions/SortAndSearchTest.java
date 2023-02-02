@@ -1,61 +1,49 @@
 package com.coherentsolutions;
 
-import com.coherentsolutions.utilities.DataProviders;
-import com.coherentsolutions.utilities.Employee;
+import com.coherentsolutions.utilities.models.Employee;
 import com.sun.org.glassfish.gmbal.Description;
-import lombok.SneakyThrows;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.coherentsolutions.utilities.ByVariables.SortAnsSearch.*;
-import static com.coherentsolutions.utilities.Constants.Config.*;
-import static com.coherentsolutions.utilities.Constants.Message.SORTING_TEST_FAIL;
-import static com.coherentsolutions.utilities.Employee.parseEmployeeTable;
-import static com.coherentsolutions.utilities.Employee.sortEmployees;
+import static com.coherentsolutions.utilities.constants.ByVariables.SortAnsSearch.*;
+import static com.coherentsolutions.utilities.constants.Constants.Config.*;
+import static com.coherentsolutions.utilities.constants.Constants.Message.SORTING_TEST_FAIL;
+import static com.coherentsolutions.utilities.ServiceMethods.*;
 
-public class SortAndSearchTest {
-    private static WebDriver webDriver;
-    private static final Logger LOGGER = LogManager.getLogger(DynamicDataTest.class);
+@Log4j2
+public class SortAndSearchTest extends BaseTest {
 
-    @BeforeSuite
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION.toString());
-        webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        LOGGER.info("Set up is done.");
+    @BeforeClass
+    @Parameters("sortAndSearchUrl")
+    public void setUp(String url) {
+        getWebDriver();
+        openPage(url);
+        new Select(getWebDriver()
+                .findElement(SHOW_ENTRIES_DROPDOWN_LIST))
+                .selectByValue(SHOW_ENTRIES_VALUE);
     }
 
-    @Test(dataProvider = "sortAndSearch", dataProviderClass = DataProviders.class)
+    @Test
     @Description("Task 4 point 9: The test verifies sorted list of employees from the site data stored in the table")
-    @SneakyThrows
-    public void progressBarTest(String url) {
-        //init
-        LOGGER.info("Open task page " + url);
-        webDriver.get(url);
+    public void sortAndSearchTest() {
         List<Employee> listOfEmployees = new ArrayList<>();
-        new Select(webDriver.findElement(SHOW_ENTRIES_DROPDOWN_LIST)).selectByValue(SHOW_ENTRIES_VALUE);
-        //get list of all employees
-        parseEmployeeTable(listOfEmployees, webDriver);
-        LOGGER.info("Size of listOfEmployees = " + listOfEmployees.size());
+
+        fillListOfEmployees(listOfEmployees, getWebDriver());
+        log.info("Total amount of employees = " + listOfEmployees.size());
+
         List<Employee> sortedEmployees = sortEmployees(listOfEmployees);
-        LOGGER.info("Size of sortedEmployees = " + sortedEmployees.size());
-        //sorting
+        log.info("Employees match the criteria = " + sortedEmployees.size());
+
         Assert.assertEquals(sortedEmployees.size(), 2, SORTING_TEST_FAIL);
     }
 
-    @AfterSuite
+    @AfterClass
     public void cleanUp() {
-        webDriver.quit();
-        LOGGER.info("Clean up");
+        webDriverQuit();
     }
 }

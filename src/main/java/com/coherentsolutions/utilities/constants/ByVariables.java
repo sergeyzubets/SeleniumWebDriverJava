@@ -1,4 +1,4 @@
-package com.coherentsolutions.utilities;
+package com.coherentsolutions.utilities.constants;
 
 import org.openqa.selenium.By;
 

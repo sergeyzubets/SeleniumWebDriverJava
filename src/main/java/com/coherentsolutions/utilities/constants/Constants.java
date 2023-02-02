@@ -1,18 +1,20 @@
-package com.coherentsolutions.utilities;
+package com.coherentsolutions.utilities.constants;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 
 public interface Constants {
 
     interface Config {
-        int IMPLICIT_WAITER_DURATION = 2;
-        int EXPLICIT_WAITER_DURATION = 5;
+        Duration IMPLICIT_WAIT_DURATION = Duration.ofSeconds(2);
+        Duration EXPLICIT_WAIT_DURATION = Duration.ofSeconds(5);
         int SLEEP_IN_MILLISECONDS = 1000;
         String PROPERTIES_CONFIG_FILE = "config.properties";
-        Path CHROME_DRIVER_LOCATION = Paths.get("src", "test", "resources", "webDrivers", "chromedriver", "v108", "chromedriver.exe");
+        Path CHROME_DRIVER_LOCATION = Paths.get("src", "test", "resources", "webDrivers", "webDrivers/chromedriver", "v108", "chromedriver.exe");
         int RANDOM_ITEMS_COUNT = 3;
         int PERCENTAGE_MAX = 50;
+        long WHILE_LIFETIME_SEC = 60;
         String SHOW_ENTRIES_VALUE = "10";
         int MIN_AGE = 50;
         int MAX_SALARY = 115_000;

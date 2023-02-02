@@ -1,86 +1,81 @@
 package com.coherentsolutions;
 
-import com.coherentsolutions.utilities.DataProviders;
 import com.sun.org.glassfish.gmbal.Description;
-import lombok.SneakyThrows;
-import org.apache.logging.log4j.*;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.time.Duration;
+import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
+import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.EmailBoxPage.*;
+import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.LoginPage.*;
+import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.MainPage.LOGIN_BUTTON_ON_MAIN_PAGE;
+import static com.coherentsolutions.utilities.constants.Constants.Message.*;
+import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 
-import static com.coherentsolutions.utilities.ByVariables.EmailLogin.EmailBoxPage.*;
-import static com.coherentsolutions.utilities.ByVariables.EmailLogin.LoginPage.*;
-import static com.coherentsolutions.utilities.ByVariables.EmailLogin.MainPage.LOGIN_BUTTON_ON_MAIN_PAGE;
-import static com.coherentsolutions.utilities.Constants.Message.*;
-import static com.coherentsolutions.utilities.Constants.Config.*;
-
-public class LoginTest {
-    private static WebDriver webDriver;
+@Log4j2
+public class LoginTest extends BaseTest {
     private static WebDriverWait wait;
-    private static final Logger LOGGER = LogManager.getLogger(LoginTest.class);
 
-    @BeforeSuite
-    public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION.toString());
-        webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAITER_DURATION));
-        wait = new WebDriverWait(webDriver, Duration.ofSeconds(EXPLICIT_WAITER_DURATION));
-
-        LOGGER.info("Set up is done.");
+    @BeforeClass
+    @Parameters("loginPageUrl")
+    public void setUp(String url) {
+        wait = new WebDriverWait(getWebDriver(), EXPLICIT_WAIT_DURATION);
+        openPage(url);
     }
 
-    @Test(dataProvider = "loginTest", dataProviderClass = DataProviders.class)
-    @Description("Task 4 points 1-4: The test verifies the login to the email mechanism for two existing users. The test compares the username in the account with the username used to log in.")
-    @SneakyThrows
-    public void loginTest(String url, String username, String password) {
-        LOGGER.info("Open main page " + url);
-        webDriver.get(url);
-        webDriver.findElement(LOGIN_BUTTON_ON_MAIN_PAGE).click();
+    @Test(dataProvider = "loginTest")
+    @Description("Task 4 points 1-4: The test verifies the login to the email mechanism for two existing users. " +
+            "The test compares the username in the account with the username used to log in.")
+    public void loginTest(String username, String password) throws InterruptedException {
+        log.info("loginTest");
+        getWebDriver().findElement(LOGIN_BUTTON_ON_MAIN_PAGE).click();
 
         try {
-            WebElement currentAccount = webDriver.findElement(CURRENT_ACCOUNT_VALUE);
+            WebElement currentAccount = getWebDriver().findElement(CURRENT_ACCOUNT_VALUE);
 
             if (currentAccount.isDisplayed()) {
                 currentAccount.click();
-                webDriver.findElement(LOGIN_TO_ANOTHER_ACCOUNT_BUTTON).click();
+                getWebDriver().findElement(LOGIN_TO_ANOTHER_ACCOUNT_BUTTON).click();
             }
         } catch (NoSuchElementException e) {
-            LOGGER.info(LOGIN_CURRENT_ACCOUNT);
+            log.info(LOGIN_CURRENT_ACCOUNT);
         }
 
-        LOGGER.info("Provide username: " + username);
-        WebElement loginField = webDriver.findElement(LOGIN_FIELD);
+        log.info("Provided username: " + username);
+        WebElement loginField = getWebDriver().findElement(LOGIN_FIELD);
         loginField.sendKeys(username);
-        webDriver.findElement(LOGIN_BUTTON_ON_LOGIN_PAGE).click();
+        getWebDriver().findElement(LOGIN_BUTTON_ON_LOGIN_PAGE).click();
 
-        LOGGER.info("Provide pass: " + password);
-        WebElement passwordField = webDriver.findElement(PASSWORD_FIELD);
+        log.info("Provided password: " + password);
+        WebElement passwordField = getWebDriver().findElement(PASSWORD_FIELD);
+        passwordField.click();
         passwordField.sendKeys(password);
         passwordField.sendKeys(Keys.ENTER);
         //Adding Thread.sleep makes the test more stable because necessary element (username) can be loaded and verified but with explicit waiter Thread.sleep does not make any sense
         Thread.sleep(SLEEP_IN_MILLISECONDS);
 
-        LOGGER.info("Verification");
+        log.info("Verification");
         wait.until(ExpectedConditions.visibilityOfElementLocated(ACCOUNT_NAME));
-        WebElement accountName = webDriver.findElement(ACCOUNT_NAME);
+        WebElement accountName = getWebDriver().findElement(ACCOUNT_NAME);
         Assert.assertEquals(username, accountName.getText(), LOGIN_IS_NOT_SUCCESSFUL);
 
-        LOGGER.info("Log out");
+        log.info("Log out");
         accountName.click();
-        WebElement logout = webDriver.findElement(LOGOUT_BUTTON);
+        WebElement logout = getWebDriver().findElement(LOGOUT_BUTTON);
         logout.click();
-
-        LOGGER.info("Test is done");
     }
 
-    @AfterSuite
-    public static void cleanUp() {
-        webDriver.quit();
-        LOGGER.info("Clean up");
+    @DataProvider(name = "loginTest")
+    public Object[][] loginTest() {
+        return new Object[][]{
+                {getPropertyValue("user1"), getPropertyValue("password1")},
+                {getPropertyValue("user2"), getPropertyValue("password2")}};
+    }
+
+    @AfterClass
+    public void cleanUp() {
+        webDriverQuit();
     }
 }

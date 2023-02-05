@@ -16,12 +16,10 @@ import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 
 @Log4j2
 public class LoginTest extends BaseTest {
-    private static WebDriverWait wait;
 
     @BeforeClass
     @Parameters("loginPageUrl")
     public void setUp(String url) {
-        wait = new WebDriverWait(getWebDriver(), EXPLICIT_WAIT_DURATION);
         openPage(url);
     }
 
@@ -57,7 +55,7 @@ public class LoginTest extends BaseTest {
         Thread.sleep(SLEEP_IN_MILLISECONDS);
 
         log.info("Verification");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ACCOUNT_NAME));
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(ACCOUNT_NAME));
         WebElement accountName = getWebDriver().findElement(ACCOUNT_NAME);
         Assert.assertEquals(username, accountName.getText(), LOGIN_IS_NOT_SUCCESSFUL);
 
@@ -72,10 +70,5 @@ public class LoginTest extends BaseTest {
         return new Object[][]{
                 {getPropertyValue("user1"), getPropertyValue("password1")},
                 {getPropertyValue("user2"), getPropertyValue("password2")}};
-    }
-
-    @AfterClass
-    public void cleanUp() {
-        webDriverQuit();
     }
 }

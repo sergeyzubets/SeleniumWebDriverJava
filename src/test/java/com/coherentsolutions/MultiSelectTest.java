@@ -16,7 +16,6 @@ public class MultiSelectTest extends BaseTest {
     @BeforeClass
     @Parameters("multiSelectListUrl")
     public void setUp(String url) {
-        getWebDriver();
         openPage(url);
     }
 
@@ -24,18 +23,11 @@ public class MultiSelectTest extends BaseTest {
     @Description("Task 4 point 5: The test verifies selected items in multi select list element.")
     public void multiSelectListTest() {
         List<Integer> optionPositions = getRandomOptionPositions(getWebDriver());
-        getExpectedResult(getWebDriver(), optionPositions);
-
         selectOptionsInMultiSelectList(getWebDriver(), optionPositions);
 
         Assert.assertEquals(
                 getActualResult(getWebDriver()),
                 getExpectedResult(getWebDriver(), optionPositions),
                 MULTISELECT_FAIL);
-    }
-
-    @AfterClass
-    public void cleanUp() {
-        webDriverQuit();
     }
 }

@@ -1,7 +1,7 @@
 package com.coherentsolutions.utilities;
 
 import lombok.SneakyThrows;
-import org.apache.logging.log4j.*;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.InputStream;
 import java.nio.file.*;
@@ -9,8 +9,8 @@ import java.util.Properties;
 
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 
+@Log4j2
 public class GetPropertyValues {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @SneakyThrows
     public static String getPropertyValue(String property) {
@@ -22,8 +22,13 @@ public class GetPropertyValues {
 
             properties.load(inputStream);
             value = properties.getProperty(property);
-        } catch (NullPointerException | NoSuchFileException e) {
-            LOGGER.error(e.getMessage());
+        } catch (NoSuchFileException e) {
+            log.error(e.getMessage());
+        }
+
+        if (value == null) {
+            log.error("Value for property " + property + " is null.");
+            throw new Exception();
         }
 
         return value;

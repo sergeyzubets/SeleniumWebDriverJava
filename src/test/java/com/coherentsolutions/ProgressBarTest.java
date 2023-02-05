@@ -16,7 +16,6 @@ public class ProgressBarTest extends BaseTest {
     @BeforeClass
     @Parameters("progressBarUrl")
     public void setUp(String url) {
-        getWebDriver();
         openPage(url);
     }
 
@@ -41,10 +40,5 @@ public class ProgressBarTest extends BaseTest {
         }
 
         Assert.assertTrue(getWebDriver().findElement(DOWNLOAD_BUTTON).isDisplayed(), DOWNLOAD_TEST_FAIL);
-    }
-
-    @AfterClass
-    public void cleanUp() {
-        webDriverQuit();
     }
 }

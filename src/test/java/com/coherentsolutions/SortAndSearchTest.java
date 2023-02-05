@@ -21,7 +21,6 @@ public class SortAndSearchTest extends BaseTest {
     @BeforeClass
     @Parameters("sortAndSearchUrl")
     public void setUp(String url) {
-        getWebDriver();
         openPage(url);
         new Select(getWebDriver()
                 .findElement(SHOW_ENTRIES_DROPDOWN_LIST))
@@ -40,10 +39,5 @@ public class SortAndSearchTest extends BaseTest {
         log.info("Employees match the criteria = " + sortedEmployees.size());
 
         Assert.assertEquals(sortedEmployees.size(), 2, SORTING_TEST_FAIL);
-    }
-
-    @AfterClass
-    public void cleanUp() {
-        webDriverQuit();
     }
 }

@@ -17,7 +17,6 @@ public class AlertTest extends BaseTest {
     @BeforeClass
     @Parameters("alertUrl")
     public void setUp(String url) {
-        getWebDriver();
         openPage(url);
     }
 
@@ -78,10 +77,5 @@ public class AlertTest extends BaseTest {
         return new Object[][]{
                 {"accept"},
                 {"dismiss"}};
-    }
-
-    @AfterClass
-    public void cleanUp() {
-        webDriverQuit();
     }
 }

@@ -25,16 +25,16 @@ public class DynamicDataTest extends BaseTest {
             "waits for a new user provided after clicking the button. " +
             "Getting the first name, last name, and photo makes the test pass.")
     public void multiSelectListTest() {
-        getWebDriver().findElement(GET_NEW_USER_BUTTON).click();
+        getDriverInstance().getDriver().findElement(GET_NEW_USER_BUTTON).click();
         getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(NEW_USER_DETAILS, "loading...")));
 
-        String userDetails = simplifyUserDetails(getWebDriver().findElement(NEW_USER_DETAILS));
+        String userDetails = simplifyUserDetails(getDriverInstance().getDriver().findElement(NEW_USER_DETAILS));
         log.info("New user details: " + userDetails);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(userDetails.contains("First Name"), MISSED_FIRST_NAME);
         softAssert.assertTrue(userDetails.contains("Last Name"), MISSED_LAST_NAME);
-        softAssert.assertTrue(getWebDriver().findElement(NEW_USER_PHOTO).isDisplayed(), MISSED_PHOTO);
+        softAssert.assertTrue(getDriverInstance().getDriver().findElement(NEW_USER_PHOTO).isDisplayed(), MISSED_PHOTO);
         softAssert.assertAll();
     }
 }

@@ -9,7 +9,7 @@ import static com.coherentsolutions.utilities.driver.Driver.*;
 public abstract class BaseTest {
 
     protected void openPage(String url) {
-        getWebDriver().get(url);
+        getDriverInstance().getDriver().get(url);
         log.info("Open task page " + url);
     }
 

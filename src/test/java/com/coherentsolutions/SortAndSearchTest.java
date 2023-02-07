@@ -14,7 +14,7 @@ import static com.coherentsolutions.utilities.constants.ByVariables.SortAnsSearc
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.SORTING_TEST_FAIL;
 import static com.coherentsolutions.utilities.ServiceMethods.*;
-import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
+import static com.coherentsolutions.utilities.driver.Driver.getDriverInstance;
 
 @Log4j2
 public class SortAndSearchTest extends BaseTest {
@@ -23,7 +23,8 @@ public class SortAndSearchTest extends BaseTest {
     @Parameters("sortAndSearchUrl")
     public void setUp(String url) {
         openPage(url);
-        new Select(getWebDriver()
+        new Select(getDriverInstance()
+                .getDriver()
                 .findElement(SHOW_ENTRIES_DROPDOWN_LIST))
                 .selectByValue(SHOW_ENTRIES_VALUE);
     }
@@ -33,7 +34,7 @@ public class SortAndSearchTest extends BaseTest {
     public void sortAndSearchTest() {
         List<Employee> listOfEmployees = new ArrayList<>();
 
-        fillListOfEmployees(listOfEmployees, getWebDriver());
+        fillListOfEmployees(listOfEmployees, getDriverInstance().getDriver());
         log.info("Total amount of employees = " + listOfEmployees.size());
 
         List<Employee> sortedEmployees = sortEmployees(listOfEmployees);

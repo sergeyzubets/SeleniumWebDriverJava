@@ -1,5 +1,6 @@
 package com.coherentsolutions.utilities.driver;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,18 +9,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 
 @Log4j2
+@Getter
 public class Driver {
-    private static WebDriver instance;
+    private static Driver instance = null;
+    private WebDriver driver;
 
     private Driver() {
+        driver = new ChromeDriver();
+        setupWebDriver(driver);
     }
 
-    public static WebDriver getWebDriver() {
-        if (instance != null) {
-            return instance;
+    public static Driver getDriverInstance() {
+        if (instance == null) {
+            instance = new Driver();
         }
-        instance = new ChromeDriver();
-        setupWebDriver(instance);
         return instance;
     }
 
@@ -32,8 +35,8 @@ public class Driver {
 
     public static void webDriverQuit() {
         try {
-            getWebDriver().close();
-            getWebDriver().quit();
+            getDriverInstance().getDriver().close();
+            getDriverInstance().getDriver().quit();
             log.info("WebDriver quit.");
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -41,6 +44,6 @@ public class Driver {
     }
 
     public static WebDriverWait getWait() {
-        return new WebDriverWait(getWebDriver(), EXPLICIT_WAIT_DURATION);
+        return new WebDriverWait(getDriverInstance().getDriver(), EXPLICIT_WAIT_DURATION);
     }
 }

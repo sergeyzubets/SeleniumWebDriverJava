@@ -14,7 +14,7 @@ import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.M
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 import static com.coherentsolutions.utilities.driver.Driver.getWait;
-import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
+import static com.coherentsolutions.utilities.driver.Driver.getDriverInstance;
 
 @Log4j2
 public class LoginTest extends BaseTest {
@@ -30,26 +30,26 @@ public class LoginTest extends BaseTest {
             "The test compares the username in the account with the username used to log in.")
     public void loginTest(String username, String password) throws InterruptedException {
         log.info("loginTest");
-        getWebDriver().findElement(LOGIN_BUTTON_ON_MAIN_PAGE).click();
+        getDriverInstance().getDriver().findElement(LOGIN_BUTTON_ON_MAIN_PAGE).click();
 
         try {
-            WebElement currentAccount = getWebDriver().findElement(CURRENT_ACCOUNT_VALUE);
+            WebElement currentAccount = getDriverInstance().getDriver().findElement(CURRENT_ACCOUNT_VALUE);
 
             if (currentAccount.isDisplayed()) {
                 currentAccount.click();
-                getWebDriver().findElement(LOGIN_TO_ANOTHER_ACCOUNT_BUTTON).click();
+                getDriverInstance().getDriver().findElement(LOGIN_TO_ANOTHER_ACCOUNT_BUTTON).click();
             }
         } catch (NoSuchElementException e) {
             log.info(LOGIN_CURRENT_ACCOUNT);
         }
 
         log.info("Provided username: " + username);
-        WebElement loginField = getWebDriver().findElement(LOGIN_FIELD);
+        WebElement loginField = getDriverInstance().getDriver().findElement(LOGIN_FIELD);
         loginField.sendKeys(username);
-        getWebDriver().findElement(LOGIN_BUTTON_ON_LOGIN_PAGE).click();
+        getDriverInstance().getDriver().findElement(LOGIN_BUTTON_ON_LOGIN_PAGE).click();
 
         log.info("Provided password: " + password);
-        WebElement passwordField = getWebDriver().findElement(PASSWORD_FIELD);
+        WebElement passwordField = getDriverInstance().getDriver().findElement(PASSWORD_FIELD);
         passwordField.click();
         passwordField.sendKeys(password);
         passwordField.sendKeys(Keys.ENTER);
@@ -58,12 +58,12 @@ public class LoginTest extends BaseTest {
 
         log.info("Verification");
         getWait().until(ExpectedConditions.visibilityOfElementLocated(ACCOUNT_NAME));
-        WebElement accountName = getWebDriver().findElement(ACCOUNT_NAME);
+        WebElement accountName = getDriverInstance().getDriver().findElement(ACCOUNT_NAME);
         Assert.assertEquals(username, accountName.getText(), LOGIN_IS_NOT_SUCCESSFUL);
 
         log.info("Log out");
         accountName.click();
-        WebElement logout = getWebDriver().findElement(LOGOUT_BUTTON);
+        WebElement logout = getDriverInstance().getDriver().findElement(LOGOUT_BUTTON);
         logout.click();
     }
 

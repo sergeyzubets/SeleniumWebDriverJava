@@ -1,11 +1,12 @@
 package com.coherentsolutions;
 
-import com.coherentsolutions.utilities.driver.Driver;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.*;
 
+import static com.coherentsolutions.utilities.driver.Driver.*;
+
 @Log4j2
-public abstract class BaseTest extends Driver {
+public abstract class BaseTest {
 
     protected void openPage(String url) {
         getWebDriver().get(url);

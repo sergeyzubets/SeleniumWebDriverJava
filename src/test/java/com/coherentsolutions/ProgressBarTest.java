@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 import static com.coherentsolutions.utilities.constants.ByVariables.ProgressBar.*;
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.DOWNLOAD_TEST_FAIL;
+import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
 
 @Log4j2
 public class ProgressBarTest extends BaseTest {

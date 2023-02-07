@@ -11,7 +11,10 @@ import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 public class Driver {
     private static WebDriver instance;
 
-    protected WebDriver getWebDriver() {
+    private Driver() {
+    }
+
+    public static WebDriver getWebDriver() {
         if (instance != null) {
             return instance;
         }
@@ -20,14 +23,14 @@ public class Driver {
         return instance;
     }
 
-    private void setupWebDriver(WebDriver webDriver) {
+    private static void setupWebDriver(WebDriver webDriver) {
         System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION.toString());
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_DURATION);
         log.info("WebDriver setup is done.");
     }
 
-    protected void webDriverQuit() {
+    public static void webDriverQuit() {
         try {
             getWebDriver().close();
             getWebDriver().quit();
@@ -37,7 +40,7 @@ public class Driver {
         }
     }
 
-    protected WebDriverWait getWait() {
+    public static WebDriverWait getWait() {
         return new WebDriverWait(getWebDriver(), EXPLICIT_WAIT_DURATION);
     }
 }

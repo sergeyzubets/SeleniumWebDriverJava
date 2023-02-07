@@ -10,6 +10,7 @@ import org.testng.annotations.*;
 import static com.coherentsolutions.utilities.constants.ByVariables.Alert.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
 import static com.coherentsolutions.utilities.UtilMethods.getRandomString;
+import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
 
 @Log4j2
 public class AlertTest extends BaseTest {

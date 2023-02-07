@@ -13,6 +13,8 @@ import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.L
 import static com.coherentsolutions.utilities.constants.ByVariables.EmailLogin.MainPage.LOGIN_BUTTON_ON_MAIN_PAGE;
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
+import static com.coherentsolutions.utilities.driver.Driver.getWait;
+import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
 
 @Log4j2
 public class LoginTest extends BaseTest {
@@ -66,7 +68,7 @@ public class LoginTest extends BaseTest {
     }
 
     @DataProvider(name = "loginTest")
-    public Object[][] loginTest() {
+    public Object[][] loginTest() throws Exception {
         return new Object[][]{
                 {getPropertyValue("user1"), getPropertyValue("password1")},
                 {getPropertyValue("user2"), getPropertyValue("password2")}};

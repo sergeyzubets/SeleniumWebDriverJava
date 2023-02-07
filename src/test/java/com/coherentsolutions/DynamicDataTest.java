@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import static com.coherentsolutions.utilities.ServiceMethods.simplifyUserDetails;
 import static com.coherentsolutions.utilities.constants.ByVariables.DynamicData.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
+import static com.coherentsolutions.utilities.driver.Driver.*;
 
 @Log4j2
 public class DynamicDataTest extends BaseTest {

@@ -14,6 +14,7 @@ import static com.coherentsolutions.utilities.constants.ByVariables.SortAnsSearc
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.SORTING_TEST_FAIL;
 import static com.coherentsolutions.utilities.ServiceMethods.*;
+import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
 
 @Log4j2
 public class SortAndSearchTest extends BaseTest {

@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.coherentsolutions.utilities.ServiceMethods.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.MULTISELECT_FAIL;
+import static com.coherentsolutions.utilities.driver.Driver.getWebDriver;
 
 @Log4j2
 public class MultiSelectTest extends BaseTest {

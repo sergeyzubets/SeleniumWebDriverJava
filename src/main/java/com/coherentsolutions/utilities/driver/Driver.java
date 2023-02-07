@@ -33,17 +33,17 @@ public class Driver {
         log.info("WebDriver setup is done.");
     }
 
-    public static void webDriverQuit() {
+    public void webDriverQuit() {
         try {
-            getDriverInstance().getDriver().close();
-            getDriverInstance().getDriver().quit();
+            getDriver().close();
+            getDriver().quit();
             log.info("WebDriver quit.");
         } catch (Exception e) {
             log.info(e.getMessage());
         }
     }
 
-    public static WebDriverWait getWait() {
-        return new WebDriverWait(getDriverInstance().getDriver(), EXPLICIT_WAIT_DURATION);
+    public WebDriverWait getWait() {
+        return new WebDriverWait(getDriver(), EXPLICIT_WAIT_DURATION);
     }
 }

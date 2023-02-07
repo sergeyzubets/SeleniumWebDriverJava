@@ -9,7 +9,6 @@ import org.testng.asserts.SoftAssert;
 import static com.coherentsolutions.utilities.ServiceMethods.simplifyUserDetails;
 import static com.coherentsolutions.utilities.constants.ByVariables.DynamicData.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
-import static com.coherentsolutions.utilities.driver.Driver.*;
 
 @Log4j2
 public class DynamicDataTest extends BaseTest {
@@ -25,16 +24,16 @@ public class DynamicDataTest extends BaseTest {
             "waits for a new user provided after clicking the button. " +
             "Getting the first name, last name, and photo makes the test pass.")
     public void multiSelectListTest() {
-        getDriverInstance().getDriver().findElement(GET_NEW_USER_BUTTON).click();
+        getDriver().findElement(GET_NEW_USER_BUTTON).click();
         getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(NEW_USER_DETAILS, "loading...")));
 
-        String userDetails = simplifyUserDetails(getDriverInstance().getDriver().findElement(NEW_USER_DETAILS));
+        String userDetails = simplifyUserDetails(getDriver().findElement(NEW_USER_DETAILS));
         log.info("New user details: " + userDetails);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(userDetails.contains("First Name"), MISSED_FIRST_NAME);
         softAssert.assertTrue(userDetails.contains("Last Name"), MISSED_LAST_NAME);
-        softAssert.assertTrue(getDriverInstance().getDriver().findElement(NEW_USER_PHOTO).isDisplayed(), MISSED_PHOTO);
+        softAssert.assertTrue(getDriver().findElement(NEW_USER_PHOTO).isDisplayed(), MISSED_PHOTO);
         softAssert.assertAll();
     }
 }

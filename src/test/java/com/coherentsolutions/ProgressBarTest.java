@@ -9,7 +9,6 @@ import org.testng.annotations.*;
 import static com.coherentsolutions.utilities.constants.ByVariables.ProgressBar.*;
 import static com.coherentsolutions.utilities.constants.Constants.Config.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.DOWNLOAD_TEST_FAIL;
-import static com.coherentsolutions.utilities.driver.Driver.getDriverInstance;
 
 @Log4j2
 public class ProgressBarTest extends BaseTest {
@@ -23,14 +22,14 @@ public class ProgressBarTest extends BaseTest {
     @Test
     @Description("Task 4 point 8: The test starts download process and refreshes the page when percentage is >= " + PERCENTAGE_MAX)
     public void progressBarTest() {
-        WebElement downloadProcess = getDriverInstance().getDriver().findElement(DOWNLOAD_PROCESS_VALUE);
-        getDriverInstance().getDriver().findElement(DOWNLOAD_BUTTON).click();
+        WebElement downloadProcess = getDriver().findElement(DOWNLOAD_PROCESS_VALUE);
+        getDriver().findElement(DOWNLOAD_BUTTON).click();
         long whileStartTime = System.currentTimeMillis();
 
         while (true) {
             if (Integer.parseInt(downloadProcess.getText().replace("%", "")) >= PERCENTAGE_MAX) {
                 log.info("Achieved percent value is: " + downloadProcess.getText());
-                getDriverInstance().getDriver().navigate().refresh();
+                getDriver().navigate().refresh();
                 break;
             }
 
@@ -40,6 +39,6 @@ public class ProgressBarTest extends BaseTest {
             }
         }
 
-        Assert.assertTrue(getDriverInstance().getDriver().findElement(DOWNLOAD_BUTTON).isDisplayed(), DOWNLOAD_TEST_FAIL);
+        Assert.assertTrue(getDriver().findElement(DOWNLOAD_BUTTON).isDisplayed(), DOWNLOAD_TEST_FAIL);
     }
 }

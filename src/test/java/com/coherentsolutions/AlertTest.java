@@ -10,7 +10,6 @@ import org.testng.annotations.*;
 import static com.coherentsolutions.utilities.constants.ByVariables.Alert.*;
 import static com.coherentsolutions.utilities.constants.Constants.Message.*;
 import static com.coherentsolutions.utilities.UtilMethods.getRandomString;
-import static com.coherentsolutions.utilities.driver.Driver.getDriverInstance;
 
 @Log4j2
 public class AlertTest extends BaseTest {
@@ -25,19 +24,19 @@ public class AlertTest extends BaseTest {
     @Description("Task 4 point 6: The test invokes Confirm box, provides a string, confirms/denies and compares the decision value with the displayed one.")
     public void alertConfirmBoxTest(String decision) {
         log.info("alertConfirmBoxTest");
-        getDriverInstance().getDriver().findElement(CONFIRM_BOX_BUTTON).click();
+        getDriver().findElement(CONFIRM_BOX_BUTTON).click();
         String expectedResult = "";
         String actualResult = "";
 
         switch (decision) {
             case "accept":
-                getDriverInstance().getDriver().switchTo().alert().accept();
-                actualResult = getDriverInstance().getDriver().findElement(CONFIRM_RESULT).getText();
+                getDriver().switchTo().alert().accept();
+                actualResult = getDriver().findElement(CONFIRM_RESULT).getText();
                 expectedResult = "OK";
                 break;
             case "dismiss":
-                getDriverInstance().getDriver().switchTo().alert().dismiss();
-                actualResult = getDriverInstance().getDriver().findElement(By.id("confirm-demo")).getText();
+                getDriver().switchTo().alert().dismiss();
+                actualResult = getDriver().findElement(By.id("confirm-demo")).getText();
                 expectedResult = "Cancel";
                 break;
         }
@@ -51,20 +50,20 @@ public class AlertTest extends BaseTest {
     @Description("Task 4 point 6: The test invokes Prompt box, provides a string, confirms/denies and compares the string value with the displayed one.")
     public void alertPromptBoxTest(String decision) {
         log.info("alertPromptBoxTest");
-        getDriverInstance().getDriver().findElement(PROMPT_BOX_BUTTON).click();
+        getDriver().findElement(PROMPT_BOX_BUTTON).click();
         String name = "";
         String actualResult = "";
 
         switch (decision) {
             case "accept":
                 name = getRandomString();
-                getDriverInstance().getDriver().switchTo().alert().sendKeys(name);
-                getDriverInstance().getDriver().switchTo().alert().accept();
-                actualResult = getDriverInstance().getDriver().findElement(PROMPT_RESULT).getText();
+                getDriver().switchTo().alert().sendKeys(name);
+                getDriver().switchTo().alert().accept();
+                actualResult = getDriver().findElement(PROMPT_RESULT).getText();
                 break;
             case "dismiss":
-                getDriverInstance().getDriver().switchTo().alert().sendKeys(getRandomString());
-                getDriverInstance().getDriver().switchTo().alert().dismiss();
+                getDriver().switchTo().alert().sendKeys(getRandomString());
+                getDriver().switchTo().alert().dismiss();
                 break;
         }
 

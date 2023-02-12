@@ -6,23 +6,23 @@ import com.coherentsolutions.pages.MainPage;
 import com.coherentsolutions.pages.PasswordPage;
 import com.sun.org.glassfish.gmbal.Description;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import static com.coherentsolutions.driver.Driver.getDriverInstance;
 import static com.coherentsolutions.utilities.Constants.TestErrorMessage.*;
 import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.runners.Suite.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-@SuiteClasses(BaseTest.class)
-public class LoginTest extends BaseTest {
+public class LoginTest {
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        openPage(getPropertyValue("loginPageUrl"));
+        String url = getPropertyValue("loginPageUrl");
+        getDriverInstance().getDriver().get(url);
+        log.info("Open task page " + url);
     }
 
     @Test
@@ -46,7 +46,12 @@ public class LoginTest extends BaseTest {
         emailBoxPage.clickLogoutButton();
 
         assertAll(
-                () -> assertEquals(LOGIN_IS_NOT_SUCCESSFUL, getPropertyValue("user"), currentUserName),
-                () -> assertTrue(LOGOUT_IS_NOT_SUCCESSFUL, mainPage.isPageOpened()));
+                () -> assertEquals(getPropertyValue("user"), currentUserName, LOGIN_IS_NOT_SUCCESSFUL),
+                () -> assertTrue(mainPage.isPageOpened(), LOGOUT_IS_NOT_SUCCESSFUL));
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        getDriverInstance().webDriverQuit();
     }
 }

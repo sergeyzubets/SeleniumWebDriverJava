@@ -17,9 +17,6 @@ public class PasswordPage extends LoginPage {
     @FindBy(id = "passp-field-passwd")
     private WebElement passwordField;
 
-    @FindBy(css = "[id='field:input-passwd:hint']")
-    private WebElement incorrectPasswordMessage;
-
     public PasswordPage() {
         if (isPageOpened()) {
             log.info("PasswordPage is displayed.");

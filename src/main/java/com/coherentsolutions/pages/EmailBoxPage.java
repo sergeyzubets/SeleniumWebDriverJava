@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @Slf4j
 public class EmailBoxPage extends PasswordPage {
 
-   // @FindBy(css = "a[class*='user-account_left-name'] > .user-account__name")
     @FindBy(xpath = "//a[contains(@class, 'user-account')]")
     private WebElement accountName;
 

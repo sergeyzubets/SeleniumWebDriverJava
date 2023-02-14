@@ -15,7 +15,7 @@ public class Driver {
     private WebDriver driver;
 
     private Driver() {
-        driver = SelectDriver(getPropertyValue("browser"));
+        driver = selectDriver(getPropertyValue("browser"));
     }
 
     public static Driver getDriverInstance() {
@@ -43,15 +43,8 @@ public class Driver {
         return new WebDriverWait(getDriver(), EXPLICIT_WAIT_DURATION);
     }
 
-    private WebDriver SelectDriver(String selectedBrowser) {
-        switch (selectedBrowser) {
-            case "chrome":
-                return new Chrome().setupWebDriver();
-            case "firefox":
-                return new Firefox().setupWebDriver();
-            default:
-                log.error(UNKNOWN_BROWSER);
-                throw new RuntimeException();
-        }
+    private WebDriver selectDriver(String selectedBrowser) {
+        DriverManager driverManager = selectedBrowser.equals("chrome") ? new Chrome() : new Firefox();
+        return driverManager.setupWebDriver();
     }
 }

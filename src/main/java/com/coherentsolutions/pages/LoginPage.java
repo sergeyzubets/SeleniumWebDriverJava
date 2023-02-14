@@ -1,12 +1,13 @@
 package com.coherentsolutions.pages;
 
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Slf4j
-public class LoginPage extends MainPage {
+public class LoginPage extends BasePage {
 
     @FindBy(css = ".passp-add-account-page-title")
     private WebElement loginPageHeader;
@@ -17,14 +18,14 @@ public class LoginPage extends MainPage {
     @FindBy(xpath = "//button[@id='passp:sign-in']")
     private WebElement loginButton;
 
-    public LoginPage() {
-        if (isPageOpened()) {
-            log.info("LoginPage is displayed.");
-        }
+    public LoginPage(WebDriver driver) {
+        super(driver);
     }
 
+    @Override
     public boolean isPageOpened() {
         wait.until(ExpectedConditions.visibilityOf(loginPageHeader));
+        log.info("LoginPage is displayed.");
         return loginPageHeader.isDisplayed();
     }
 
@@ -39,6 +40,6 @@ public class LoginPage extends MainPage {
         wait.until(ExpectedConditions.visibilityOf(loginButton));
         loginButton.click();
         log.info("Click loginButton.");
-        return new PasswordPage();
+        return new PasswordPage(driver);
     }
 }

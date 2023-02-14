@@ -11,10 +11,13 @@ public interface Constants {
         Path PROPERTIES_CONFIG_FILE = Paths.get("src", "main", "resources", "config.properties");
         Path CHROME_DRIVER_LOCATION = Paths.get("src", "main", "resources", "webDrivers", "chromedriver", "v109", "chromedriver.exe");
         Path FIREFOX_DRIVER_LOCATION = Paths.get("src", "main", "resources", "webDrivers", "firefox", "geckodriver.exe");
-        String UNKNOWN_BROWSER = "A config for the browser does not exist.";
     }
 
     interface TestErrorMessage {
+        String MAIN_PAGE_IS_NOT_OPENED = "Main page is not opened.";
+        String LOGIN_PAGE_IS_NOT_OPENED = "Login page is not opened.";
+        String PASSWORD_PAGE_IS_NOT_OPENED = "Password page is not opened.";
+        String EMAIL_BOX_PAGE_IS_NOT_OPENED = "Email Box page is not opened.";
         String LOGIN_IS_NOT_SUCCESSFUL = "Login is not successful.";
         String LOGOUT_IS_NOT_SUCCESSFUL = "Logout is not successful.";
     }

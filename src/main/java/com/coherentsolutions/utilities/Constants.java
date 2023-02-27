@@ -20,5 +20,6 @@ public interface Constants {
         String EMAIL_BOX_PAGE_IS_NOT_OPENED = "Email Box page is not opened.";
         String LOGIN_IS_NOT_SUCCESSFUL = "Login is not successful.";
         String LOGOUT_IS_NOT_SUCCESSFUL = "Logout is not successful.";
+        String TEST_FAILED = "Test is not successful.";
     }
 }

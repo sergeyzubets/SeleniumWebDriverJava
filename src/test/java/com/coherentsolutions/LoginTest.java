@@ -6,13 +6,15 @@ import com.coherentsolutions.pages.MainPage;
 import com.coherentsolutions.pages.PasswordPage;
 import com.sun.org.glassfish.gmbal.Description;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static com.coherentsolutions.driver.Driver.getDriverInstance;
-import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
+import static com.coherentsolutions.driver.Utils.makeScreenshot;
 import static com.coherentsolutions.utilities.Constants.TestErrorMessage.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
 
 @Slf4j
 public class LoginTest {
@@ -27,32 +29,37 @@ public class LoginTest {
     }
 
     @Test
-    @Description("Task 5: The test verifies the login to the email mechanism. " +
-            "The test compares the username in the account with the username used to log in.")
+    @Description("Task 6: The test performs the login action and makes screenshot of home page of yandex mail.")
     public void loginTest() {
+        String userName = getPropertyValue("user");
+        String password = getPropertyValue("password");
         MainPage mainPage = openMainPage();
-        assertTrue(mainPage.isPageOpened(), MAIN_PAGE_IS_NOT_OPENED);
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertTrue(mainPage.isPageOpened(), MAIN_PAGE_IS_NOT_OPENED);
         mainPage.clickLoginButton();
 
         LoginPage loginPage = new LoginPage(driver);
-        assertTrue(loginPage.isPageOpened(), LOGIN_PAGE_IS_NOT_OPENED);
-        loginPage.fillInLoginField(getPropertyValue("user")).clickLoginButton();
+        softAssert.assertTrue(loginPage.isPageOpened(), LOGIN_PAGE_IS_NOT_OPENED);
+        loginPage.fillInLoginField(userName).clickLoginButton();
 
         PasswordPage passwordPage = new PasswordPage(driver);
-        assertTrue(passwordPage.isPageOpened(), PASSWORD_PAGE_IS_NOT_OPENED);
-        passwordPage.fillInPasswordField(getPropertyValue("password")).clickLoginButton();
+        softAssert.assertTrue(passwordPage.isPageOpened(), PASSWORD_PAGE_IS_NOT_OPENED);
+        passwordPage.fillInPasswordField(password).clickLoginButton();
 
         EmailBoxPage emailBoxPage = new EmailBoxPage(driver);
-        assertTrue(emailBoxPage.isPageOpened(), EMAIL_BOX_PAGE_IS_NOT_OPENED);
+        softAssert.assertTrue(emailBoxPage.isPageOpened(), EMAIL_BOX_PAGE_IS_NOT_OPENED);
+        makeScreenshot(driver);
+
         String currentUserName = emailBoxPage.getAccountName();
         emailBoxPage.openUserMenu().clickLogoutButton();
 
-        assertAll(
-                () -> assertTrue(mainPage.isPageOpened(), LOGOUT_IS_NOT_SUCCESSFUL),
-                () -> assertEquals(getPropertyValue("user"), currentUserName, LOGIN_IS_NOT_SUCCESSFUL));
+        softAssert.assertTrue(mainPage.isPageOpened(), LOGOUT_IS_NOT_SUCCESSFUL);
+        softAssert.assertEquals(userName, currentUserName, LOGIN_IS_NOT_SUCCESSFUL);
+        softAssert.assertAll(TEST_FAILED);
     }
 
-    @AfterEach
+    @AfterSuite
     public void cleanUp() {
         getDriverInstance().webDriverQuit();
     }

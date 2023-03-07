@@ -1,5 +1,6 @@
 package com.coherentsolutions.pages;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,13 +23,6 @@ public class PasswordPage extends BasePage {
         super(driver);
     }
 
-    @Override
-    public boolean isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOf(loginPageHeader));
-        log.info("PasswordPage is displayed.");
-        return loginPageHeader.isDisplayed();
-    }
-
     public PasswordPage fillInPasswordField(String password) {
         wait.until(ExpectedConditions.visibilityOf(passwordField));
         passwordField.sendKeys(password);
@@ -41,5 +35,13 @@ public class PasswordPage extends BasePage {
         loginButton.click();
         log.info("Click loginButton.");
         return new EmailBoxPage(driver);
+    }
+
+    @Step("Open password page.")
+    @Override
+    public boolean isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOf(loginPageHeader));
+        log.info("PasswordPage is displayed.");
+        return loginPageHeader.isDisplayed();
     }
 }

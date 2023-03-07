@@ -1,5 +1,6 @@
 package com.coherentsolutions.pages;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,13 +20,6 @@ public class EmailBoxPage extends BasePage {
         super(driver);
     }
 
-    @Override
-    public boolean isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOf(accountName));
-        log.info("EmailBoxPage is displayed.");
-        return accountName.isDisplayed();
-    }
-
     public String getAccountName() {
         String result = accountName.getText();
         log.info("Current account name is: " + result);
@@ -39,10 +33,19 @@ public class EmailBoxPage extends BasePage {
         return this;
     }
 
+    @Step("Logout.")
     public MainPage clickLogoutButton() {
         wait.until(ExpectedConditions.visibilityOf(logoutButton)).isDisplayed();
         logoutButton.click();
         log.info("Click logoutButton.");
         return new MainPage(driver);
+    }
+
+    @Step("Open EmailBox page.")
+    @Override
+    public boolean isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOf(accountName));
+        log.info("EmailBoxPage is displayed.");
+        return accountName.isDisplayed();
     }
 }

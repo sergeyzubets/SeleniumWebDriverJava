@@ -1,5 +1,6 @@
 package com.coherentsolutions.pages;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @Slf4j
 public class MainPage extends BasePage {
 
-    @FindBy(css = ".Button2_view_default ")
+    @FindBy(css = "[class*='Button2_view_default Button2_size_m']")
     private WebElement loginButton;
 
     @FindBy(id = "root")
@@ -19,17 +20,18 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    @Override
-    public boolean isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOf(mainPageHeader));
-        log.info("MainPage is displayed.");
-        return mainPageHeader.isDisplayed();
-    }
-
     public LoginPage clickLoginButton() {
         wait.until(ExpectedConditions.visibilityOf(loginButton));
         loginButton.click();
         log.info("Click loginButton.");
         return new LoginPage(driver);
+    }
+
+    @Step("Open main page.")
+    @Override
+    public boolean isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOf(mainPageHeader));
+        log.info("MainPage is displayed.");
+        return mainPageHeader.isDisplayed();
     }
 }

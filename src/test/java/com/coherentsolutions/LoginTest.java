@@ -1,5 +1,6 @@
 package com.coherentsolutions;
 
+import com.coherentsolutions.listener.Listener;
 import com.coherentsolutions.pages.EmailBoxPage;
 import com.coherentsolutions.pages.LoginPage;
 import com.coherentsolutions.pages.MainPage;
@@ -9,6 +10,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -16,6 +18,7 @@ import static com.coherentsolutions.utilities.Constants.TestErrorMessage.*;
 import static com.coherentsolutions.utilities.GetPropertyValues.getPropertyValue;
 
 @Slf4j
+@Listeners({Listener.class})
 public class LoginTest extends BaseTest {
 
     @Test
@@ -72,6 +75,22 @@ public class LoginTest extends BaseTest {
 
         softAssert.assertTrue(mainPage.isPageOpened(), LOGOUT_IS_NOT_SUCCESSFUL);
         softAssert.assertEquals(getPropertyValue("user"), currentUserName, LOGIN_IS_NOT_SUCCESSFUL);
+        softAssert.assertAll(TEST_FAILED);
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("T3")
+    @Description("The test opens login page to validate failed scenario in the Allure report.")
+    public void passedTest() {
+        SoftAssert softAssert = new SoftAssert();
+        MainPage mainPage = openMainPage();
+        softAssert.assertTrue(mainPage.isPageOpened(), MAIN_PAGE_IS_NOT_OPENED);
+        mainPage.clickLoginButton();
+
+        LoginPage loginPage = new LoginPage(driver);
+        softAssert.assertTrue(loginPage.isPageOpened(), LOGIN_PAGE_IS_NOT_OPENED);
+        loginPage.fillInLoginField(getPropertyValue("user")).clickLoginButton();
         softAssert.assertAll(TEST_FAILED);
     }
 }

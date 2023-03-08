@@ -1,29 +1,21 @@
 package com.coherentsolutions.listener;
 
-import com.coherentsolutions.driver.Driver;
-import io.qameta.allure.Attachment;
+import com.coherentsolutions.BaseTest;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
-import org.testng.IInvokedMethod;
-import org.testng.IInvokedMethodListener;
-import org.testng.ITestContext;
+import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import static com.coherentsolutions.driver.Utils.makeScreenshot;
-
 @Slf4j
-public class Listener implements IInvokedMethodListener {
+public class Listener extends BaseTest implements ITestListener {
 
-    @Attachment(value = "Screenshot", type = "image/png")
-    public byte[] saveScreenshot(WebDriver driver) {
-        return makeScreenshot(driver);
+    @Override
+    public void onTestFailure(ITestResult iTestResult) {
+        log.info(iTestResult.getMethod().getConstructorOrMethod().getName() + " failed. See the screenshot attached.");
+        isTestFailed = true;
     }
 
     @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
-        if (testResult.getStatus() == ITestResult.FAILURE) {
-            WebDriver driver = Driver.getDriverInstance().getDriver();
-            saveScreenshot(driver);
-        }
+    public void onTestSuccess(ITestResult iTestResult) {
+        isTestFailed = false;
     }
 }

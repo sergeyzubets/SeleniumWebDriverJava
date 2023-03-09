@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Task 07 suite" parallel="tests">
+<!--    <listeners>-->
+<!--        <listener class-name="com.coherentsolutions.listener.Listener"/>-->
+<!--    </listeners>-->
+    <test name="Task 07 test">
+        <classes>
+            <class name="com.coherentsolutions.BaseTest"/>
+            <class name="com.coherentsolutions.LoginTest"/>
+        </classes>
+    </test>
+</suite>
